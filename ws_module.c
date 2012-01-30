@@ -7,19 +7,24 @@
 
 static int ws_init(void)
 {
+    int rv = 0;
+
     printk(KERN_INFO "WS Loading...\n");
 
-    push_data("tasklet", NULL, 0);
+//    push_data("tasklet", NULL, 0);
+    
+    rv = ws_intf_init();
 
     printk(KERN_INFO "WS Loaded\n");
 
-    return 0;
+    return rv;
 }
 
 static void ws_exit(void)
 {
     printk(KERN_INFO "WS exiting...\n");
 
+    ws_intf_exit();
     ws_tasklet_exit();
 
     printk(KERN_INFO "WS Exited\n");
