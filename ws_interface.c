@@ -50,7 +50,7 @@ static ssize_t ws_ctrl_write(struct file *file, const char __user *buf,
     *ctrl_arg = '\0';
     ctrl_arg++;
 
-    err = push_data(ctrl, ctrl_arg, count - (ctrl_arg - ctrl));
+    err = process_cmd(ctrl, ctrl_arg, count - (ctrl_arg - ctrl));
     if (err < 0)
     {
         rv = err;

@@ -1,4 +1,6 @@
 
+/* Tasklet management. */
+
 #include <linux/module.h>
 #include <linux/string.h>
 #include <linux/interrupt.h>
@@ -26,7 +28,7 @@ static void ws_data_tasklet_func(unsigned long data)
     printk(KERN_INFO "In tasklet");
 }
 
-static int push_to_tasklet(const uint8_t *data, size_t datelen) 
+int ws_tasklet_process(const uint8_t *data, size_t datelen) 
 {
 
     /* For the moment, we're not pushing the data anywhere. We're just running
@@ -45,15 +47,4 @@ void ws_tasklet_exit(void)
      * wait for it to finish. */
     tasklet_kill(&ws_data_tasklet);
 }
-
-int push_data(const char *type, const uint8_t *data, size_t datalen)
-{
-    if (strcmp("tasklet", type) == 0)
-        return push_to_tasklet(data, datalen);
-
-    printk(KERN_ERR "Unknown type: %s", type);
-    return -EINVAL;
-}
-
-
 
