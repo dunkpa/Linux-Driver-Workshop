@@ -18,5 +18,10 @@ void ws_intf_exit(void);
 void ws_tasklet_exit(void);
 int ws_tasklet_process(const uint8_t *data, size_t datelen);
 
+/* ws_work_queue.c */
+int ws_wq_process(const uint8_t *data, size_t datelen);
+int ws_wq_init(void);
+void ws_wq_exit(void);
+
 #endif
 

@@ -9,25 +9,33 @@ static int ws_init(void)
 {
     int rv = 0;
 
-    printk(KERN_INFO "WS Loading...\n");
+    printk(KERN_INFO "ws loading...\n");
 
-//    push_data("tasklet", NULL, 0);
-    
     rv = ws_intf_init();
+    if (rv < 0)
+        goto exit;
+    rv = ws_wq_init();
+    if (rv < 0)
+        goto exit;
 
-    printk(KERN_INFO "WS Loaded\n");
 
+exit:
+    if (rv != 0)
+        printk(KERN_ERR "ws failed to load.\n");
+    else
+        printk(KERN_INFO "ws loaded.\n");
     return rv;
 }
 
 static void ws_exit(void)
 {
-    printk(KERN_INFO "WS exiting...\n");
+    printk(KERN_INFO "ws exiting...\n");
 
-    ws_intf_exit();
+    ws_wq_exit();
     ws_tasklet_exit();
+    ws_intf_exit();
 
-    printk(KERN_INFO "WS Exited\n");
+    printk(KERN_INFO "ws exited.\n");
 }
 
 module_init(ws_init);

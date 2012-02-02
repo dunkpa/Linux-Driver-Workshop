@@ -11,6 +11,7 @@
 static void ws_data_tasklet_func(unsigned long data);
 
 
+// TODO do this at runtime instead.
 /* Statically declare and initialise a tasklet. Initialisation can also be done
  * at runtime using tasklet_init(). The following is equivalent to saying
  *
@@ -25,7 +26,7 @@ DECLARE_TASKLET(ws_data_tasklet, ws_data_tasklet_func, 0);
 
 static void ws_data_tasklet_func(unsigned long data)
 {
-    printk(KERN_INFO "In tasklet");
+    printk(KERN_INFO "In tasklet.\n");
 }
 
 int ws_tasklet_process(const uint8_t *data, size_t datelen) 

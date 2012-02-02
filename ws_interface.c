@@ -23,6 +23,7 @@ static ssize_t ws_ctrl_write(struct file *file, const char __user *buf,
     char *ctrl;
     char *ctrl_arg;
     char *ctrl_sep = " ";
+    size_t ctrl_arg_len;
     ssize_t rv = 0;
     ssize_t err = 0;
 
@@ -39,18 +40,25 @@ static ssize_t ws_ctrl_write(struct file *file, const char __user *buf,
     }
 
     /* We expect a command string consisting of a command followed by a space,
-     * and then command arguments. */
+     * and then command arguments. There may be no arguments, and hence no 
+     * space. */
     ctrl_arg = strstr(ctrl, ctrl_sep);
-    if (ctrl_arg == NULL)
+    if (ctrl_arg != NULL)
     {
-        printk(KERN_ERR "Invalid control string.\n");
-        rv = -EINVAL;
-        goto exit;
+        ctrl_arg_len = count - (ctrl_arg - ctrl);
+        *ctrl_arg = '\0';
+        ctrl_arg++;
     }
-    *ctrl_arg = '\0';
-    ctrl_arg++;
+    else
+    {
+        ctrl_arg_len = 0;
+        /* Clip the trailing newline. */
+        printk("0x%x 0x%x 0x%x %u\n", ctrl[0], ctrl[1], ctrl[2], strlen(ctrl));
+        if (strlen(ctrl))
+            ctrl[strlen(ctrl)-1] = '\0';
+    }
 
-    err = process_cmd(ctrl, ctrl_arg, count - (ctrl_arg - ctrl));
+    err = process_cmd(ctrl, ctrl_arg, ctrl_arg_len);
     if (err < 0)
     {
         rv = err;
