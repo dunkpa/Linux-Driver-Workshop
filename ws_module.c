@@ -14,6 +14,9 @@ static int ws_init(void)
     rv = ws_intf_init();
     if (rv < 0)
         goto exit;
+    rv = ws_kthread_init();
+    if (rv < 0)
+        goto exit;
     rv = ws_wq_init();
     if (rv < 0)
         goto exit;
@@ -31,6 +34,7 @@ static void ws_exit(void)
 {
     printk(KERN_INFO "ws exiting...\n");
 
+    ws_kthread_exit();
     ws_wq_exit();
     ws_tasklet_exit();
     ws_intf_exit();

@@ -77,8 +77,7 @@ static struct file_operations fops =
 
 int ws_intf_init(void)
 {
-    // TODO - should be 'ws' not 'w5'
-    root = debugfs_create_dir("w5", NULL);
+    root = debugfs_create_dir("ws", NULL);
     if (root == NULL)
     {
         printk(KERN_ERR "Failed to create debugfs entry.\n");

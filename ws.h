@@ -23,5 +23,10 @@ int ws_wq_process(const uint8_t *data, size_t datelen);
 int ws_wq_init(void);
 void ws_wq_exit(void);
 
+/* ws_kthread.c */
+int ws_kthread_process(const uint8_t *data, size_t datelen);
+int ws_kthread_init(void);
+void ws_kthread_exit(void);
+
 #endif
 
