@@ -33,10 +33,8 @@ static int ws_kthread(void *unused)
             }
             schedule();
         }
-        printk(KERN_INFO "Here\n");
         finish_wait(&thread_wake_q, &wait);
 
-        printk(KERN_INFO "Thread woken.\n");
         thread_wake = false;
     }
 
@@ -61,7 +59,7 @@ int ws_kthread_init(void)
     init_waitqueue_head(&thread_wake_q);
 
     /* Create and start our thread. */
-    thread = kthread_create(ws_kthread, NULL, "ws");
+    thread = kthread_run(ws_kthread, NULL, "ws");
     if (IS_ERR(thread))
     {
         printk(KERN_ERR "Failed to create thread.\n");

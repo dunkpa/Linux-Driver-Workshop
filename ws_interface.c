@@ -53,7 +53,6 @@ static ssize_t ws_ctrl_write(struct file *file, const char __user *buf,
     {
         ctrl_arg_len = 0;
         /* Clip the trailing newline. */
-        printk("0x%x 0x%x 0x%x %u\n", ctrl[0], ctrl[1], ctrl[2], strlen(ctrl));
         if (strlen(ctrl))
             ctrl[strlen(ctrl)-1] = '\0';
     }
