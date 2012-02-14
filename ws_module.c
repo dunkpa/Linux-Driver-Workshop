@@ -17,6 +17,9 @@ static int ws_init(void)
     rv = ws_kthread_init();
     if (rv < 0)
         goto exit;
+    rv = ws_tasklet_init();
+    if (rv < 0)
+        goto exit;
     rv = ws_wq_init();
     if (rv < 0)
         goto exit;

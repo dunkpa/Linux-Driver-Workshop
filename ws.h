@@ -15,6 +15,7 @@ int ws_intf_init(void);
 void ws_intf_exit(void);
 
 /* ws_tasklet.c */
+int ws_tasklet_init(void);
 void ws_tasklet_exit(void);
 int ws_tasklet_process(const uint8_t *data, size_t datelen);
 
