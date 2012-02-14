@@ -20,6 +20,9 @@ static int ws_init(void)
     rv = ws_tasklet_init();
     if (rv < 0)
         goto exit;
+    rv = ws_timer_init();
+    if (rv < 0)
+        goto exit;
     rv = ws_wq_init();
     if (rv < 0)
         goto exit;
@@ -39,6 +42,7 @@ static void ws_exit(void)
 
     ws_kthread_exit();
     ws_wq_exit();
+    ws_timer_exit();
     ws_tasklet_exit();
     ws_intf_exit();
 

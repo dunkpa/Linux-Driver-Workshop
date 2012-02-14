@@ -12,6 +12,8 @@ int process_cmd(const char *cmd, const uint8_t *data, size_t datalen)
         return ws_wq_process(data, datalen);
     if (strcmp("thread", cmd) == 0)
         return ws_kthread_process(data, datalen);
+    if (strcmp("timer", cmd) == 0)
+        return ws_timer_process(data, datalen);
 
     printk(KERN_ERR "Unknown cmd: %s", cmd);
     return -EINVAL;

@@ -29,5 +29,10 @@ int ws_kthread_process(const uint8_t *data, size_t datelen);
 int ws_kthread_init(void);
 void ws_kthread_exit(void);
 
+/* ws_timer.c */
+int ws_timer_process(const uint8_t *data, size_t datelen);
+int ws_timer_init(void);
+void ws_timer_exit(void);
+
 #endif
 
