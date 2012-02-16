@@ -17,7 +17,8 @@ static void ws_timer(unsigned long data)
 
 int ws_timer_process(const uint8_t *data, size_t datalen)
 {
-    /* Set the timer to fire in 10 milliseconds. */
+    /* Set the timer to fire in 10 milliseconds. Note the use of the
+     * msecs_to_jiffies() function. */
     mod_timer(&timer, msecs_to_jiffies(10));
     return 0;
 }
